@@ -1,6 +1,8 @@
 package com.kc.mylearnings.springcloud.microservices.currencyexchangeservice;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
 
 @RestController
 public class CurrencyExchangeController {
+
+    Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Environment environment;
@@ -29,6 +33,9 @@ public class CurrencyExchangeController {
             //Use "local.server.port" or simply "server.port"
             exchangeValue.setInstancePort(Integer.parseInt(environment.getProperty("server.port")));
         }
+
+        LOGGER.info("{}", exchangeValue);
+
         return exchangeValue;
 
     }
